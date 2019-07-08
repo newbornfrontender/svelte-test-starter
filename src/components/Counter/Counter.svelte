@@ -6,8 +6,6 @@
 </script>
 
 <Increment />
-<p>{ $counter }</p>
+<p>{$counter}</p>
 <Decrement />
 <Reset />
-
-

@@ -26,6 +26,7 @@ export default {
     alias({
       resolve: ['.svelte', '.js'],
       store: `${__dirname}/src/store`,
+      '@': `${__dirname}/src/components`,
     }),
     htmlnano({
       production,

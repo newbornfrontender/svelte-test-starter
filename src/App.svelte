@@ -1,15 +1,18 @@
 <script>
-  import Inner from './components/Inner.svelte';
-  import Counter from './components/Counter/Counter.svelte';
+  import Inner from '@/Inner.svelte';
+  import Counter from '@/Counter/Counter.svelte';
+  import Transition from '@/Transition.svelte';
 </script>
 
 <h1>Hello world!</h1>
 
 <div class="inner">
   <Inner />
-
-  <Counter />
 </div>
+
+<Counter />
+
+<Transition />
 
 <style>
   h1 {
