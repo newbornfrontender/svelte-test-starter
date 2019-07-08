@@ -1,5 +1,5 @@
 module.exports = ({ production }) => ({
   plugins: {
-    htmlnano: production,
+    htmlnano: production && {},
   },
 });

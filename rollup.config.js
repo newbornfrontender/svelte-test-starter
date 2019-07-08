@@ -22,16 +22,6 @@ export default {
     preferConst: true,
   },
   plugins: [
-    // posthtml({
-    //   ctx: {
-    //     production,
-    //   },
-    //   config: {
-    //     plugins: {
-    //       htmlnano: production,
-    //     },
-    //   },
-    // }),
     posthtml(),
     svelte({
       dev: !production,
