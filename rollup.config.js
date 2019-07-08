@@ -5,6 +5,7 @@ import { terser } from 'rollup-plugin-terser';
 import autoPreprocess from 'svelte-preprocess';
 import postcss from 'rollup-plugin-postcss';
 import babel from 'rollup-plugin-babel';
+import alias from 'rollup-plugin-alias';
 import { sync as rimraf } from 'rimraf';
 
 import htmlnano from './plugins/htmlnano';
@@ -22,6 +23,10 @@ export default {
     preferConst: true,
   },
   plugins: [
+    alias({
+      resolve: ['.svelte', '.js'],
+      store: `${__dirname}/src/store`,
+    }),
     htmlnano({
       production,
     }),
