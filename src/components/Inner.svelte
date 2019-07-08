@@ -2,6 +2,6 @@
 
 <style>
   .text {
-    color: blue;
+    color: rgb(30% 40% 50% / 95%);
   }
 </style>

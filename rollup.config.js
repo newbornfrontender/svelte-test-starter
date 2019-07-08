@@ -7,7 +7,7 @@ import postcss from 'rollup-plugin-postcss';
 import babel from 'rollup-plugin-babel';
 import { sync as rimraf } from 'rimraf';
 
-import posthtml from './plugins/html';
+import htmlnano from './plugins/htmlnano';
 
 const production = !process.env.ROLLUP_WATCH;
 
@@ -22,7 +22,11 @@ export default {
     preferConst: true,
   },
   plugins: [
-    posthtml(),
+    htmlnano({
+      ctx: {
+        production,
+      },
+    }),
     svelte({
       dev: !production,
       emitCss: true,
