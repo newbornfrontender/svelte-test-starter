@@ -1,7 +1,7 @@
-<p class="text">Inner component</p>
+<p>Inner component</p>
 
 <style>
-  .text {
+  p {
     color: rgb(30% 40% 50% / 95%);
   }
 </style>
