@@ -23,9 +23,7 @@ export default {
   },
   plugins: [
     htmlnano({
-      ctx: {
-        production,
-      },
+      production,
     }),
     svelte({
       dev: !production,

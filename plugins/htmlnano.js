@@ -5,10 +5,12 @@ import postcss from 'postcss';
 import syntax from 'postcss-syntax';
 import htmlnano from 'htmlnano';
 
-export default ({ options = {}, ctx: { production }, config = {} }) => {
-  if (!options.include) options.include = '**/*.html';
+export default (options = {}) => {
+  let { include, exclude, production } = options;
 
-  const filter = createFilter(options.include, options.exclude);
+  if (!include) include = '**/*.html';
+
+  const filter = createFilter(include, exclude);
 
   return {
     name: 'rollup-plugin-htmlnano',
@@ -21,11 +23,15 @@ export default ({ options = {}, ctx: { production }, config = {} }) => {
         .pop()
         .split('.')
         .shift();
-      const path = `${__dirname}\\public\\${name}.html`;
+      const path = `public\\${name}.html`;
 
       const { plugins, options } = await postcssrc({ production });
-      const { css } = await postcss(plugins).process(source, { ...options, syntax: syntax, from: id, to: path });
-      const { html } = await htmlnano.process(css, config);
+      const { css } = await postcss(plugins).process(source, {
+        ...options,
+        syntax: syntax,
+        from: id,
+      });
+      const { html } = await htmlnano.process(css, options);
 
       writeFileSync(path, production ? html : css, () => true);
 

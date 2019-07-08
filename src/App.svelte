@@ -1,3 +1,7 @@
+<script>
+  import Inner from './components/Inner.svelte';
+</script>
+
 <h1>Hello world!</h1>
 
 <div>
@@ -14,7 +18,3 @@
     color: red;
   }
 </style>
-
-<script>
-  import Inner from './components/Inner.svelte';
-</script>
