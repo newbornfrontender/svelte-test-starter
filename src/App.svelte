@@ -4,7 +4,11 @@
   import Transition from '@/Transition.svelte';
 </script>
 
-<h1>Hello world!</h1>
+<h1>
+  Hello
+  <span>world</span>
+  !
+</h1>
 
 <div class="inner">
   <Inner />
@@ -17,6 +21,10 @@
 <style>
   h1 {
     color: red;
+
+    & span {
+      color: red;
+    }
   }
 
   .inner :global(p) {
