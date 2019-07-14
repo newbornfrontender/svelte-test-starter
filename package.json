@@ -45,7 +45,7 @@
     "sirv-cli": "^0.4.4"
   },
   "scripts": {
-    "format": "prettier --svelte-sort-order scripts-markup-styles --write **/*.{svelte,html,js,json}",
+    "format": "prettier --svelte-sort-order scripts-markup-styles --write **/*.{svelte,html,js,json,md}",
     "lint:css": "stylelint --fix **/*.{svelte,css}",
     "lint:css:check": "stylelint-config-prettier-check",
     "lint:js": "eslint . --fix --ext svelte,js",
