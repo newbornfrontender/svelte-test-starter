@@ -1,8 +1,0 @@
-{
-  "**/*.{svelte,js}": ["eslint --fix", "git add"],
-  "**/*.{svelte,css}": ["stylelint --fix", "git add"],
-  "**/*.{svelte,html,js,json,md}": [
-    "prettier --svelte-sort-order markup-styles-scripts --write",
-    "git add"
-  ]
-}

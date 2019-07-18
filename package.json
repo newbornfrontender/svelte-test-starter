@@ -55,5 +55,76 @@
     "dev": "run-p start:dev autobuild",
     "start": "sirv public --single",
     "start:dev": "sirv public --single --dev"
+  },
+  "browserslist": [
+    "last 2 chrome version",
+    "last 2 firefox version",
+    "last 1 safari version"
+  ],
+  "prettier": {
+    "printWidth": 100,
+    "useTabs": false,
+    "tabWidth": 2,
+    "singleQuote": true,
+    "trailingComma": "all",
+    "arrowParens": "always"
+  },
+  "babel": {
+    "presets": [
+      "@babel/env"
+    ]
+  },
+  "eslintIgnore": [
+    "plugins",
+    "public",
+    "*.js"
+  ],
+  "stylelint": {
+    "extends": [
+      "stylelint-config-standard",
+      "stylelint-config-prettier"
+    ],
+    "plugins": [
+      "stylelint-order"
+    ],
+    "rules": {
+      "selector-pseudo-class-no-unknown": [
+        true,
+        {
+          "ignorePseudoClasses": [
+            "global"
+          ]
+        }
+      ],
+      "order/properties-alphabetical-order": true
+    }
+  },
+  "stylelintignore": [
+    "public"
+  ],
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
+  },
+  "lint-staged": {
+    "**/*.{svelte,js}": [
+      "eslint --fix",
+      "git add"
+    ],
+    "**/*.{svelte,css}": [
+      "stylelint --fix",
+      "git add"
+    ],
+    "**/*.{svelte,html,js,json,md}": [
+      "prettier --svelte-sort-order markup-styles-scripts --write",
+      "git add"
+    ]
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
   }
 }
