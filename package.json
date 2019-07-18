@@ -11,6 +11,7 @@
     "commitlint": "^8.0.0",
     "eslint": "^6.0.1",
     "eslint-config-prettier": "^6.0.0",
+    "eslint-plugin-compat": "^3.3.0",
     "eslint-plugin-prettier": "^3.1.0",
     "eslint-plugin-svelte3": "^2.4.2",
     "htmlnano": "^0.2.3",
