@@ -8,7 +8,7 @@ import babel from 'rollup-plugin-babel';
 import alias from 'rollup-plugin-alias';
 import { sync as rimraf } from 'rimraf';
 
-import htmlnano from './plugins/htmlnano';
+import postCSSInHTML from './plugins/postcss-in-html';
 
 const production = !process.env.ROLLUP_WATCH;
 
@@ -28,7 +28,7 @@ export default {
       store: `${__dirname}/src/store`,
       '@': `${__dirname}/src/components`,
     }),
-    htmlnano({
+    transformHtml({
       production,
     }),
     svelte({

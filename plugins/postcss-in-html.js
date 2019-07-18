@@ -13,7 +13,7 @@ export default (options = {}) => {
   const filter = createFilter(include, exclude);
 
   return {
-    name: 'rollup-plugin-htmlnano',
+    name: 'rollup-plugin-postcss-in-html',
 
     async transform(source, id) {
       if (!filter(id)) return;
