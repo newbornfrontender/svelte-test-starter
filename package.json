@@ -118,7 +118,7 @@
       "git add"
     ],
     "**/*.{svelte,html,js,json,md}": [
-      "prettier --svelte-sort-order markup-styles-scripts --write",
+      "prettier --svelte-sort-order scripts-markup-styles --write",
       "git add"
     ]
   },
