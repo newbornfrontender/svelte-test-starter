@@ -9,7 +9,7 @@
 <button on:click={reset}>Reset</button>
 
 <style>
-  button {
+  /* button {
     margin-inline-start: 1rem;
-  }
+  } */
 </style>
