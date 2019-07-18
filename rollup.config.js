@@ -17,7 +17,7 @@ rimraf('public/**/*');
 export default {
   input: 'src/index.js',
   output: {
-    sourcemap: true,
+    sourcemap: !production,
     format: 'esm',
     dir: 'public',
     preferConst: true,
@@ -28,7 +28,7 @@ export default {
       store: `${__dirname}/src/store`,
       '@': `${__dirname}/src/components`,
     }),
-    transformHtml({
+    postCSSInHTML({
       production,
     }),
     svelte({
@@ -47,7 +47,7 @@ export default {
     babel(),
     postcss({
       extract: true,
-      sourceMap: true,
+      sourceMap: !production,
       minimize: production,
       config: {
         ctx: {
