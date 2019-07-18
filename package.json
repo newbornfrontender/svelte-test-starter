@@ -48,9 +48,9 @@
   },
   "scripts": {
     "format": "prettier --svelte-sort-order scripts-markup-styles --write **/*.{svelte,html,js,json,md}",
-    "lint:css": "stylelint --fix **/*.{svelte,css}",
+    "lint:css": "stylelint --fix **/*.{svelte,css} --ignore-path .gitignore",
     "lint:css:check": "stylelint-config-prettier-check",
-    "lint:js": "eslint . --fix --ext svelte,js",
+    "lint:js": "eslint . --fix --ext svelte,js --ignore-path .gitignore",
     "lint:js:check": "eslint --print-config src/index.js | eslint-config-prettier-check",
     "build": "rollup -c",
     "autobuild": "rollup -c -w",
