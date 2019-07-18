@@ -28,7 +28,7 @@ export default {
       store: `${__dirname}/src/store`,
       '@': `${__dirname}/src/components`,
     }),
-    transformHtml({
+    postCSSInHTML({
       production,
     }),
     svelte({
