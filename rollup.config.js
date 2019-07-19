@@ -3,12 +3,13 @@ import resolve from 'rollup-plugin-node-resolve';
 import livereload from 'rollup-plugin-livereload';
 import { terser } from 'rollup-plugin-terser';
 import autoPreprocess from 'svelte-preprocess';
-import postcss from 'rollup-plugin-postcss';
+// import postcss from 'rollup-plugin-postcss';
 import babel from 'rollup-plugin-babel';
 import alias from 'rollup-plugin-alias';
 import { sync as rimraf } from 'rimraf';
 
 import postCSSInHTML from './plugins/postcss-in-html';
+import postcss from './plugins/postcss';
 
 const production = !process.env.ROLLUP_WATCH;
 
@@ -19,7 +20,8 @@ export default {
   output: {
     sourcemap: !production,
     format: 'esm',
-    dir: 'public',
+    // dir: 'public',
+    file: 'public/bundle.js',
     preferConst: true,
   },
   plugins: [
@@ -33,7 +35,7 @@ export default {
     }),
     svelte({
       dev: !production,
-      emitCss: true,
+      css: (css) => css.write('public/bundle.css'),
       preprocess: autoPreprocess({
         postcss: {
           production,
@@ -45,14 +47,20 @@ export default {
       modulesOnly: true,
     }),
     babel(),
+    // postcss({
+    //   // extract: true,
+    //   inject: false,
+    //   sourceMap: !production,
+    //   minimize: production,
+    //   config: {
+    //     ctx: {
+    //       production,
+    //     },
+    //   },
+    // }),
     postcss({
-      extract: true,
-      sourceMap: !production,
-      minimize: production,
-      config: {
-        ctx: {
-          production,
-        },
+      ctx: {
+        production,
       },
     }),
     !production && livereload('public'),

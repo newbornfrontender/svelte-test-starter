@@ -9,6 +9,7 @@
     "@commitlint/config-conventional": "^8.0.0",
     "babel-eslint": "^10.0.2",
     "commitlint": "^8.0.0",
+    "cssnano": "^4.1.10",
     "doiuse": "^4.2.0",
     "eslint": "^6.0.1",
     "eslint-config-prettier": "^6.0.0",
