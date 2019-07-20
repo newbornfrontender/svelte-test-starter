@@ -3,34 +3,39 @@ import resolve from 'rollup-plugin-node-resolve';
 import livereload from 'rollup-plugin-livereload';
 import { terser } from 'rollup-plugin-terser';
 import autoPreprocess from 'svelte-preprocess';
-// import postcss from 'rollup-plugin-postcss';
 import babel from 'rollup-plugin-babel';
 import alias from 'rollup-plugin-alias';
 import { sync as rimraf } from 'rimraf';
 
-import postCSSInHTML from './plugins/postcss-in-html';
-import postcss from './plugins/postcss';
+import postCssInHtml from './plugins/postcss-in-html';
+import postCssInCss from './plugins/postcss-in-css';
 
 const production = !process.env.ROLLUP_WATCH;
 
 rimraf('public/**/*');
 
 export default {
-  input: 'src/index.js',
+  input: 'src/main.js',
   output: {
-    sourcemap: !production,
+    sourcemap: true,
     format: 'esm',
-    // dir: 'public',
     file: 'public/bundle.js',
     preferConst: true,
   },
   plugins: [
+    resolve({
+      browser: true,
+      modulesOnly: true,
+    }),
     alias({
       resolve: ['.svelte', '.js'],
+      component: `${__dirname}/src/components`,
       store: `${__dirname}/src/store`,
-      '@': `${__dirname}/src/components`,
     }),
-    postCSSInHTML({
+    postCssInHtml({
+      production,
+    }),
+    postCssInCss({
       production,
     }),
     svelte({
@@ -42,27 +47,7 @@ export default {
         },
       }),
     }),
-    resolve({
-      browser: true,
-      modulesOnly: true,
-    }),
     babel(),
-    // postcss({
-    //   // extract: true,
-    //   inject: false,
-    //   sourceMap: !production,
-    //   minimize: production,
-    //   config: {
-    //     ctx: {
-    //       production,
-    //     },
-    //   },
-    // }),
-    postcss({
-      ctx: {
-        production,
-      },
-    }),
     !production && livereload('public'),
     production &&
       terser({

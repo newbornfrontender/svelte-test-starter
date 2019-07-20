@@ -1,11 +1,11 @@
 import { createFilter } from 'rollup-pluginutils';
-import { writeFile } from 'fs';
+import { writeFileSync } from 'fs';
 import postcssrc from 'postcss-load-config';
 import postcss from 'postcss';
 import cssnano from 'cssnano';
 
 export default (options = {}) => {
-  let { include, exclude, ctx, config } = options;
+  let { include, exclude, production, minify } = options;
 
   if (!include) include = '**/*.css';
 
@@ -17,17 +17,24 @@ export default (options = {}) => {
     async transform(source, id) {
       if (!filter(id)) return;
 
-      const { plugins, options } = await postcssrc(ctx);
+      const name = id
+        .split('\\')
+        .pop()
+        .split('.')
+        .shift();
+      const path = `${__dirname}\\public\\${name}.css`;
 
-      ctx.production && plugins.push(cssnano(config));
+      const { plugins, options } = await postcssrc({ production });
+
+      production && plugins.push(cssnano(minify));
 
       const { css } = await postcss(plugins).process(source, {
         ...options,
         from: id,
-        to: 'public/global.css',
+        to: path,
       });
 
-      writeFile('public/global.css', css, () => true);
+      writeFileSync(path, css, () => true);
 
       return {
         code: '',

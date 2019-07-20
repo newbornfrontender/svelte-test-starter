@@ -23,7 +23,7 @@ export default (options = {}) => {
         .pop()
         .split('.')
         .shift();
-      const path = `public\\${name}.html`;
+      const path = `${__dirname}\\public\\${name}.html`;
 
       const { plugins, options } = await postcssrc({ production });
       const { css } = await postcss(plugins).process(source, {

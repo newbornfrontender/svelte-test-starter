@@ -1,7 +1,7 @@
 <script>
-  import Inner from '@/Inner.svelte';
-  import Counter from '@/Counter/Counter.svelte';
-  import Transition from '@/Transition.svelte';
+  import Inner from 'component/Inner.svelte';
+  import Counter from 'component/Counter/Counter.svelte';
+  import Transition from 'component/Transition.svelte';
 </script>
 
 <h1>

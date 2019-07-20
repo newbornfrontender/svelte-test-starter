@@ -1,5 +1,3 @@
-const { browserslist: browsers } = require('./package.json');
-
 module.exports = ({ production }) => ({
   plugins: {
     'postcss-use': true,
@@ -9,10 +7,5 @@ module.exports = ({ production }) => ({
       stage: 0,
       autoprefixer: production,
     },
-    doiuse: {
-      browsers,
-      ignoreFiles: ['**/normalize.css'],
-    },
-    'postcss-reporter': true,
   },
 });
