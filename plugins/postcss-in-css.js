@@ -28,11 +28,16 @@ export default (options = {}) => {
 
       production && plugins.push(cssnano(minify));
 
-      const { css } = await postcss(plugins).process(source, {
+      const { css, map } = await postcss(plugins).process(source, {
         ...options,
         from: id,
         to: path,
+        map: {
+          inline: false,
+        },
       });
+
+      console.log(map);
 
       writeFileSync(path, css, () => true);
 
