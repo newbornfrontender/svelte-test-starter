@@ -44,8 +44,7 @@
     "stylelint-config-standard": "^18.3.0",
     "stylelint-no-unsupported-browser-features": "^3.0.2",
     "stylelint-order": "^3.0.0",
-    "svelte": "^3.0.0",
-    "svelte-preprocess": "^2.14.3"
+    "svelte": "^3.0.0"
   },
   "dependencies": {
     "sirv-cli": "^0.4.4"
@@ -63,9 +62,9 @@
     "start:dev": "sirv public --single --dev"
   },
   "browserslist": [
-    "last 1 chrome version",
-    "last 1 firefox version",
-    "last 1 safari version"
+    "last 2 chrome version",
+    "last 2 firefox version",
+    "last 2 safari version"
   ],
   "prettier": {
     "printWidth": 100,

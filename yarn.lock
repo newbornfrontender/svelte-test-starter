@@ -6796,14 +6796,6 @@ supports-color@^6.1.0:
   dependencies:
     has-flag "^3.0.0"
 
-svelte-preprocess@^2.14.3:
-  version "2.14.4"
-  resolved "https://registry.yarnpkg.com/svelte-preprocess/-/svelte-preprocess-2.14.4.tgz#8acafce8e5bb1131fad3b70243dcfdf2448ab831"
-  integrity sha512-X5ljU8HASsUVeXeLcpRLP9pJaN6dQO+dzhfareLk5Xs2go7p6AoWOnKzgPSUdtXLytp9locqRfu1IGgDPt+m5w==
-  dependencies:
-    postcss-load-config "^2.0.0"
-    strip-indent "^2.0.0"
-
 svelte@^3.0.0:
   version "3.6.7"
   resolved "https://registry.yarnpkg.com/svelte/-/svelte-3.6.7.tgz#20e814b79aac4009d4bc1ecf0c9287a6bf7e96fb"
