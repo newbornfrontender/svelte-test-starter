@@ -1,4 +1,4 @@
-@import-normalize;
+@import-sanitize;
 
 body {
   margin: 0;
