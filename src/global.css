@@ -1,5 +1,1 @@
-@import-sanitize;
-
-body {
-  margin: 0;
-}
+@import "sanitize";

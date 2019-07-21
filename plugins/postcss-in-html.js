@@ -6,7 +6,7 @@ import syntax from 'postcss-syntax';
 import htmlnano from 'htmlnano';
 
 import checkDir from './utils/check-dir';
-import getFileNameFromId from './utils/get-filename-from-id';
+import getFileName from './utils/get-filename';
 
 export default (options = {}) => {
   let { include, exclude, ctx } = options;
@@ -23,7 +23,6 @@ export default (options = {}) => {
     async transform(source, id) {
       if (!filter(id)) return;
 
-      const { filename } = getFileNameFromId(id);
       const { plugins, options } = await postcssrc(ctx);
       const { css } = await postcss(plugins).process(source, {
         ...options,
@@ -32,7 +31,7 @@ export default (options = {}) => {
       });
       const { html } = await htmlnano.process(css, options);
 
-      writeFileSync(`public/${filename}.html`, ctx.production ? html : css, () => true);
+      writeFileSync(`public/${getFileName(id)}.html`, ctx.production ? html : css, () => true);
 
       return {
         code: '',

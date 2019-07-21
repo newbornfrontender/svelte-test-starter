@@ -6,7 +6,7 @@ import postcssImport from 'postcss-import';
 import postcssNormalize from 'postcss-normalize';
 
 import checkDir from './utils/check-dir';
-import getFileNameFromId from './utils/get-filename-from-id';
+import getFileName from './utils/get-filename';
 
 export default (options = {}) => {
   let { include, exclude, ctx } = options;
@@ -23,7 +23,6 @@ export default (options = {}) => {
     async transform(source, id) {
       if (!filter(id)) return;
 
-      const { filename } = getFileNameFromId(id);
       const { plugins, options } = await postcssrc(ctx);
       const {
         css,
@@ -39,7 +38,7 @@ export default (options = {}) => {
         },
       );
 
-      writeFileSync(`public/${filename}.css`, css, () => true);
+      writeFileSync(`public/${getFileName(id)}.css`, css, () => true);
 
       return {
         code: '',
