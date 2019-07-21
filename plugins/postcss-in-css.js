@@ -2,10 +2,11 @@ import { createFilter } from 'rollup-pluginutils';
 import { writeFileSync } from 'fs';
 import postcssrc from 'postcss-load-config';
 import postcss from 'postcss';
-import cssnano from 'cssnano';
+import postcssImport from 'postcss-import';
+import postcssNormalize from 'postcss-normalize';
 
 export default (options = {}) => {
-  let { include, exclude, production, minify } = options;
+  let { include, exclude, production } = options;
 
   if (!include) include = '**/*.css';
 
@@ -26,18 +27,20 @@ export default (options = {}) => {
 
       const { plugins, options } = await postcssrc({ production });
 
-      production && plugins.push(cssnano(minify));
-
-      const { css, map } = await postcss(plugins).process(source, {
-        ...options,
-        from: id,
-        to: path,
-        map: {
-          inline: false,
+      const {
+        css,
+        // map,
+      } = await postcss([postcssImport(postcssNormalize().postcssImport()), ...plugins]).process(
+        source,
+        {
+          ...options,
+          from: id,
+          to: path,
+          // map: {
+          //   inline: false,
+          // },
         },
-      });
-
-      console.log(map);
+      );
 
       writeFileSync(path, css, () => true);
 

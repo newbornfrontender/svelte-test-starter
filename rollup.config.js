@@ -2,10 +2,13 @@ import svelte from 'rollup-plugin-svelte';
 import resolve from 'rollup-plugin-node-resolve';
 import livereload from 'rollup-plugin-livereload';
 import { terser } from 'rollup-plugin-terser';
-import autoPreprocess from 'svelte-preprocess';
 import babel from 'rollup-plugin-babel';
 import alias from 'rollup-plugin-alias';
 import { sync as rimraf } from 'rimraf';
+
+import postcss from 'postcss';
+import postcssrc from 'postcss-load-config';
+import postcssPresetEnv from 'postcss-preset-env';
 
 import postCssInHtml from './plugins/postcss-in-html';
 import postCssInCss from './plugins/postcss-in-css';
@@ -40,12 +43,33 @@ export default {
     }),
     svelte({
       dev: !production,
-      css: (css) => css.write('public/bundle.css'),
-      preprocess: autoPreprocess({
-        postcss: {
-          production,
+      preprocess: {
+        async style({ content, filename }) {
+          const { css } = await postcss([
+            postcssPresetEnv({
+              stage: 4,
+              features: {
+                'nesting-rules': true,
+              },
+              autoprefixer: false,
+            }),
+          ]).process(content, { from: filename });
+
+          return {
+            code: css,
+          };
         },
-      }),
+      },
+      async css(source) {
+        const { code } = source;
+
+        const { plugins, options } = await postcssrc({ production });
+        const { css } = await postcss(plugins).process(code, { ...options, from: undefined });
+
+        source.code = css;
+
+        source.write('public/bundle.css');
+      },
     }),
     babel(),
     !production && livereload('public'),
