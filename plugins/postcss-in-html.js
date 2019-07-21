@@ -8,14 +8,14 @@ import htmlnano from 'htmlnano';
 import checkDir from './utils/check-dir';
 import getFileNameFromId from './utils/get-filename-from-id';
 
-checkDir('public');
-
 export default (options = {}) => {
   let { include, exclude, ctx } = options;
 
   if (!include) include = '**/*.html';
 
   const filter = createFilter(include, exclude);
+
+  checkDir('public');
 
   return {
     name: 'postcss-in-html',

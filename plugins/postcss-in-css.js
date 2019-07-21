@@ -8,14 +8,14 @@ import postcssNormalize from 'postcss-normalize';
 import checkDir from './utils/check-dir';
 import getFileNameFromId from './utils/get-filename-from-id';
 
-checkDir('public');
-
 export default (options = {}) => {
   let { include, exclude, ctx } = options;
 
   if (!include) include = '**/*.css';
 
   const filter = createFilter(include, exclude);
+
+  checkDir('public');
 
   return {
     name: 'postcss-in-css',
@@ -33,7 +33,6 @@ export default (options = {}) => {
         {
           ...options,
           from: id,
-          to: path,
           // map: {
           //   inline: false,
           // },
