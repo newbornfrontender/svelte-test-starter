@@ -5,28 +5,26 @@ import postcss from 'postcss';
 import postcssImport from 'postcss-import';
 import postcssNormalize from 'postcss-normalize';
 
+import checkDir from './utils/check-dir';
+import getFileNameFromId from './utils/get-filename-from-id';
+
+checkDir('public');
+
 export default (options = {}) => {
-  let { include, exclude, production } = options;
+  let { include, exclude, ctx } = options;
 
   if (!include) include = '**/*.css';
 
   const filter = createFilter(include, exclude);
 
   return {
-    name: 'rollup-plugin-postcss',
+    name: 'postcss-in-css',
 
     async transform(source, id) {
       if (!filter(id)) return;
 
-      const name = id
-        .split('\\')
-        .pop()
-        .split('.')
-        .shift();
-      const path = `${__dirname}\\public\\${name}.css`;
-
-      const { plugins, options } = await postcssrc({ production });
-
+      const { filename } = getFileNameFromId(id);
+      const { plugins, options } = await postcssrc(ctx);
       const {
         css,
         // map,
@@ -42,7 +40,7 @@ export default (options = {}) => {
         },
       );
 
-      writeFileSync(path, css, () => true);
+      writeFileSync(`public/${filename}.css`, css, () => true);
 
       return {
         code: '',

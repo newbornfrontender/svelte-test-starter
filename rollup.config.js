@@ -5,17 +5,16 @@ import { terser } from 'rollup-plugin-terser';
 import babel from 'rollup-plugin-babel';
 import alias from 'rollup-plugin-alias';
 import { sync as rimraf } from 'rimraf';
-
 import postcss from 'postcss';
 import postcssrc from 'postcss-load-config';
 import postcssPresetEnv from 'postcss-preset-env';
 
-import postCssInHtml from './plugins/postcss-in-html';
-import postCssInCss from './plugins/postcss-in-css';
+import postCSSInHTML from './plugins/postcss-in-html';
+import postCSSInCSS from './plugins/postcss-in-css';
 
 const production = !process.env.ROLLUP_WATCH;
 
-rimraf('public/**/*');
+rimraf('public');
 
 export default {
   input: 'src/main.js',
@@ -35,14 +34,9 @@ export default {
       component: `${__dirname}/src/components`,
       store: `${__dirname}/src/store`,
     }),
-    postCssInHtml({
-      production,
-    }),
-    postCssInCss({
-      production,
-    }),
     svelte({
       dev: !production,
+      exclude: '**/*.html',
       preprocess: {
         async style({ content, filename }) {
           const { css } = await postcss([
@@ -69,6 +63,16 @@ export default {
         source.code = css;
 
         source.write('public/bundle.css');
+      },
+    }),
+    postCSSInHTML({
+      ctx: {
+        production,
+      },
+    }),
+    postCSSInCSS({
+      ctx: {
+        production,
       },
     }),
     babel(),
