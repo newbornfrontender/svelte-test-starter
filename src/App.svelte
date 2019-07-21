@@ -31,5 +31,9 @@
   .inner :global(p) {
     color: green;
     font-size: 1.2rem;
+
+    &:dir(rtl) {
+      color: red;
+    }
   }
 </style>
