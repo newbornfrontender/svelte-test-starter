@@ -21,6 +21,7 @@
 <style>
   h1 {
     color: red;
+    margin-inline-start: 2rem;
 
     & span {
       color: red;
