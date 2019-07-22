@@ -5,8 +5,8 @@ import postcss from 'postcss';
 import syntax from 'postcss-syntax';
 import htmlnano from 'htmlnano';
 
-import checkDir from './utils/check-dir';
-import getFileName from './utils/get-filename';
+// Utils
+import filename from './utils/filename';
 
 export default (options = {}) => {
   let { include, exclude, ctx } = options;
@@ -15,10 +15,8 @@ export default (options = {}) => {
 
   const filter = createFilter(include, exclude);
 
-  checkDir('public');
-
   return {
-    name: 'postcss-in-html',
+    name: 'html',
 
     async transform(source, id) {
       if (!filter(id)) return;
@@ -31,7 +29,7 @@ export default (options = {}) => {
       });
       const { html } = await htmlnano.process(css, options);
 
-      writeFileSync(`public/${getFileName(id)}.html`, ctx.production ? html : css, () => true);
+      writeFileSync(`public/${filename(id)}.html`, ctx.production ? html : css, () => true);
 
       return {
         code: '',

@@ -78,11 +78,6 @@
       "@babel/env"
     ]
   },
-  "eslintIgnore": [
-    "plugins",
-    "public",
-    "*.js"
-  ],
   "stylelint": {
     "extends": [
       "stylelint-config-standard",
@@ -110,12 +105,12 @@
     }
   },
   "lint-staged": {
-    "**/*.{svelte,js}": [
-      "eslint --fix",
+    "src/**/*.{svelte,css}": [
+      "stylelint --fix",
       "git add"
     ],
-    "**/*.{svelte,css}": [
-      "stylelint --fix",
+    "src/**/*.{svelte,js}": [
+      "eslint --fix",
       "git add"
     ],
     "**/*.{svelte,html,js,json,md}": [
