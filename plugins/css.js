@@ -22,22 +22,18 @@ export default (options = {}) => {
       if (!filter(id)) return;
 
       const { plugins, options } = await postcssrc(ctx);
-      let {
-        css,
-        map,
-      } = await postcss([postcssImport(postcssNormalize().postcssImport()), ...plugins]).process(
-        source,
-        {
-          ...options,
-          from: id,
-          map: {
-            inline: false,
-          },
+      let { css, map } = await postcss([
+        postcssImport(postcssNormalize().postcssImport()),
+        ...plugins,
+      ]).process(source, {
+        ...options,
+        from: id,
+        map: {
+          inline: false,
         },
-      );
+      });
 
-      css = css.replace('^\/\*#.*\/$', `\n/*# sourceMappingURL=${filename(id)}.css.map */`)
-      // css += `\n/*# sourceMappingURL=${filename(id)}.css.map */`;
+      css = css.replace(/^\/\*#.*\/$/gm, `/*# sourceMappingURL=${filename(id)}.css.map */`);
 
       writeFileSync(`public/${filename(id)}.css`, css, () => true);
       writeFileSync(`public/${filename(id)}.css.map`, map.toString(), () => true);
