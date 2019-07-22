@@ -1,20 +1,25 @@
-import svelte from 'rollup-plugin-svelte';
-import resolve from 'rollup-plugin-node-resolve';
-import livereload from 'rollup-plugin-livereload';
-import { terser } from 'rollup-plugin-terser';
-import babel from 'rollup-plugin-babel';
-import alias from 'rollup-plugin-alias';
+import { existsSync, mkdirSync } from 'fs';
 import { sync as rimraf } from 'rimraf';
 import postcss from 'postcss';
 import postcssrc from 'postcss-load-config';
 import postcssPresetEnv from 'postcss-preset-env';
 
-import postCSSInHTML from './plugins/postcss-in-html';
-import postCSSInCSS from './plugins/postcss-in-css';
+// External rollup plugins
+import resolve from 'rollup-plugin-node-resolve';
+import alias from 'rollup-plugin-alias';
+import svelte from 'rollup-plugin-svelte';
+import babel from 'rollup-plugin-babel';
+import { terser } from 'rollup-plugin-terser';
+import livereload from 'rollup-plugin-livereload';
+
+// Local rollup plugins
+import html from './plugins/html';
+import css from './plugins/css';
 
 const production = !process.env.ROLLUP_WATCH;
+const dirname = 'public';
 
-rimraf('public');
+!existsSync(dirname) ? mkdirSync(dirname) : rimraf(`${dirname}/**/*`);
 
 export default {
   input: 'src/main.js',
@@ -56,21 +61,19 @@ export default {
       },
       async css(source) {
         const { code } = source;
-
         const { plugins, options } = await postcssrc({ production });
         const { css } = await postcss(plugins).process(code, { ...options, from: undefined });
 
         source.code = css;
-
         source.write('public/bundle.css');
       },
     }),
-    postCSSInHTML({
+    html({
       ctx: {
         production,
       },
     }),
-    postCSSInCSS({
+    css({
       ctx: {
         production,
       },
