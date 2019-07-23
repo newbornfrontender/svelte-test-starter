@@ -17,9 +17,8 @@ import html from './plugins/html';
 import css from './plugins/css';
 
 const production = !process.env.ROLLUP_WATCH;
-const dirname = 'public';
 
-!existsSync(dirname) ? mkdirSync(dirname) : rimraf(`${dirname}/**/*`);
+!existsSync('public') ? mkdirSync('public') : rimraf('public}/**/*');
 
 export default {
   input: 'src/main.js',
