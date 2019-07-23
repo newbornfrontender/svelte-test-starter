@@ -18,7 +18,7 @@ import css from './plugins/css';
 
 const production = !process.env.ROLLUP_WATCH;
 
-!existsSync('public') ? mkdirSync('public') : rimraf('public}/**/*');
+!existsSync('public') ? mkdirSync('public') : rimraf('public/**/*');
 
 export default {
   input: 'src/main.js',
