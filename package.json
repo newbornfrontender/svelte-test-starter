@@ -49,7 +49,7 @@
     "sirv-cli": "^0.4.4"
   },
   "scripts": {
-    "format": "prettier --svelte-sort-order scripts-markup-styles --write **/*.{svelte,html,js,json,md}",
+    "format": "prettier --svelte-sort-order scripts-markup-styles --write **/*.{svelte,html,js,json,md} --ignore-path .gitignore",
     "lint:css": "stylelint --fix src/**/*.{svelte,css}",
     "lint:css:check": "stylelint-config-prettier-check",
     "lint:js": "eslint src --fix --ext svelte,js",
@@ -114,7 +114,7 @@
       "git add"
     ],
     "**/*.{svelte,html,js,json,md}": [
-      "prettier --svelte-sort-order scripts-markup-styles --write",
+      "prettier --svelte-sort-order scripts-markup-styles --write --ignore-path .gitignore",
       "git add"
     ]
   },
