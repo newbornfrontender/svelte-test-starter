@@ -1,6 +1,6 @@
 import postcss from 'postcss';
 import postcssrc from 'postcss-load-config';
-import env from 'postcss-preset-env';
+import postcssPresetEnv from 'postcss-preset-env';
 import resolve from 'rollup-plugin-node-resolve';
 import alias from 'rollup-plugin-alias';
 import svelte from 'rollup-plugin-svelte';
@@ -40,7 +40,7 @@ export default {
       preprocess: {
         async style({ content, filename }) {
           const { css } = await postcss([
-            env({
+            postcssPresetEnv({
               stage: false,
               autoprefixer: false,
               features: {},

@@ -1,7 +1,6 @@
 import postcssrc from 'postcss-load-config';
 import postcss from 'postcss';
 import postcssImport from 'postcss-import';
-import postcssNormalize from 'postcss-normalize';
 import { writeFileSync } from 'fs';
 import { createFilter } from 'rollup-pluginutils';
 
@@ -21,10 +20,7 @@ export default (options = {}) => {
       if (!filter(id)) return;
 
       const { plugins, options } = await postcssrc(ctx);
-      let { css, map } = await postcss([
-        postcssImport(postcssNormalize().postcssImport()),
-        ...plugins,
-      ]).process(source, {
+      let { css, map } = await postcss([postcssImport(), ...plugins]).process(source, {
         ...options,
         from: id,
         map: {
