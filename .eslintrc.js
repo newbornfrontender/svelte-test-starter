@@ -17,7 +17,7 @@ module.exports = {
     },
     {
       files: '*.js',
-      extends: 'plugin:prettier/recommended',
+      extends: ['plugin:jest/all', 'plugin:prettier/recommended'],
     },
   ],
   settings: {

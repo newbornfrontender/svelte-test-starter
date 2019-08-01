@@ -32,6 +32,7 @@ export default {
     }),
     alias({
       resolve: ['.svelte', '.js'],
+      '@': './components',
     }),
     svelte({
       dev: !production,
