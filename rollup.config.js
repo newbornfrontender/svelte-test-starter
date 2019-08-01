@@ -1,24 +1,21 @@
-import { existsSync, mkdirSync } from 'fs';
-import { sync as rimraf } from 'rimraf';
 import postcss from 'postcss';
 import postcssrc from 'postcss-load-config';
-import postcssPresetEnv from 'postcss-preset-env';
-
-// External rollup plugins
+import env from 'postcss-preset-env';
 import resolve from 'rollup-plugin-node-resolve';
 import alias from 'rollup-plugin-alias';
 import svelte from 'rollup-plugin-svelte';
 import babel from 'rollup-plugin-babel';
-import { terser } from 'rollup-plugin-terser';
 import livereload from 'rollup-plugin-livereload';
+import { existsSync, mkdirSync } from 'fs';
+import { sync } from 'rimraf';
+import { terser } from 'rollup-plugin-terser';
 
-// Local rollup plugins
 import html from './plugins/html';
 import css from './plugins/css';
 
 const production = !process.env.ROLLUP_WATCH;
 
-!existsSync('public') ? mkdirSync('public') : rimraf('public/**/*');
+!existsSync('public') ? mkdirSync('public') : sync('public/**/*');
 
 export default {
   input: 'src/main.js',
@@ -35,8 +32,6 @@ export default {
     }),
     alias({
       resolve: ['.svelte', '.js'],
-      component: `${__dirname}/src/components`,
-      store: `${__dirname}/src/store`,
     }),
     svelte({
       dev: !production,
@@ -44,12 +39,10 @@ export default {
       preprocess: {
         async style({ content, filename }) {
           const { css } = await postcss([
-            postcssPresetEnv({
-              stage: 4,
-              features: {
-                'nesting-rules': true,
-              },
+            env({
+              stage: false,
               autoprefixer: false,
+              features: {},
             }),
           ]).process(content, { from: filename });
 

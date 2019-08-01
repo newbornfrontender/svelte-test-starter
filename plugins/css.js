@@ -1,11 +1,10 @@
-import { createFilter } from 'rollup-pluginutils';
-import { writeFileSync } from 'fs';
 import postcssrc from 'postcss-load-config';
 import postcss from 'postcss';
 import postcssImport from 'postcss-import';
 import postcssNormalize from 'postcss-normalize';
+import { writeFileSync } from 'fs';
+import { createFilter } from 'rollup-pluginutils';
 
-// Utils
 import filename from './utils/filename';
 
 export default (options = {}) => {
