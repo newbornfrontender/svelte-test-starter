@@ -23,5 +23,5 @@ module.exports = {
   settings: {
     'svelte3/ignore-styles': () => true,
   },
-  extends: ['eslint:recommended', 'plugin:compat/recommended'],
+  extends: ['eslint:recommended'],
 };
